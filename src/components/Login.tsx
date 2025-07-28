@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { app } from '../firebase';
+
+const auth = getAuth(app);
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Add login logic here
-        alert(`Logging in with username: ${username} and password: ${password}`);
+        setError(null);
+        try {
+            await signInWithEmailAndPassword(auth, username, password);
+            // On success, auth state listener in App.tsx will update user and render Homepage
+        } catch (err: any) {
+            setError(err.message || 'Login failed');
+        }
     };
 
     return (
@@ -17,7 +27,7 @@ const Login: React.FC = () => {
                 <label htmlFor="username">Username</label>
                 <input
                     id="username"
-                    type="text"
+                    type="email"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter username"
@@ -32,6 +42,7 @@ const Login: React.FC = () => {
                     placeholder="Enter password"
                     required
                 />
+                {error && <div className="login-error">{error}</div>}
                 <button type="submit">Log In</button>
             </form>
         </div>

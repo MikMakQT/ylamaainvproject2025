@@ -1,10 +1,22 @@
 import React from 'react';
 import './Homepage.css';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 
 const Homepage: React.FC = () => {
     const auth = getAuth();
     const user = auth.currentUser;
+
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                // Sign-out successful.
+                window.location.reload();
+            })
+            .catch((error) => {
+                // An error happened.
+                console.error('Logout error:', error);
+            });
+    };
 
     return (
         <div className="homepage">
@@ -22,6 +34,9 @@ const Homepage: React.FC = () => {
                 <nav className="taskbar-tabs">
                     <button className="taskbar-tab" disabled>
                         Homepage
+                    </button>
+                    <button className="taskbar-tab" onClick={handleLogout}>
+                        Logout
                     </button>
                 </nav>
             </header>
