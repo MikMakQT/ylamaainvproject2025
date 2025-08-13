@@ -1,13 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
-// TODO: Replace the following with your app's Firebase project configuration
-// You can find this information in your Firebase project settings
+// Firebase project configuration
 const firebaseConfig = {
 
     apiKey: "AIzaSyC7S7bAljF-4zTv2rLzkMqTxSINEf50Ex8",
 
     authDomain: "ylamaaproject2025.firebaseapp.com",
+
+    databaseURL: "https://ylamaaproject2025-default-rtdb.europe-west1.firebasedatabase.app",
 
     projectId: "ylamaaproject2025",
 
@@ -28,4 +30,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore database
 const db = getFirestore(app);
 
-export { app, db };
+// Initialize Realtime Database
+const rdb = getDatabase(app);
+
+export { app, db, rdb };
