@@ -2,6 +2,7 @@ import React from 'react';
 import './Homepage.css';
 import { getAuth, signOut } from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
+import InventoryCarousel from "./InventoryCarousel";
 
 const Homepage: React.FC = () => {
     const auth = getAuth();
@@ -77,6 +78,7 @@ const Homepage: React.FC = () => {
                 </nav>
             </div>
             <main className="homepage-content">
+                <InventoryCarousel />
                 <div className="welcome-message">
                     <h1>Tähän tulee aloitussivun näkymä</h1>
                     <p>Tälle sivulle päivittyvät uusimmat tallennetut tiedot.</p>
